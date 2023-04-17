@@ -1,0 +1,25 @@
+[server]
+host = "0.0.0.0"
+port = 13639
+
+[storage]
+# 用户上下文保留条数,0为保留所有,保留的越多消耗的token也越多
+max_contexts = 10 
+
+[concurrency]
+# 最大并发数,默认10 就是可以同时处理10条指令
+max_goroutines = 10
+
+[queue]
+# 指令队列长度,当并发已经满了的时候指令存放到队列排队处理
+max_length = 1000
+
+[openai]
+url             = "api.openai.com"
+authorization   = "Bearer sk-kTPExCkhctOW5xvcktaspT3BlbkFJTasxknPFmmCZasxYyw87ir3"
+
+[kook]
+base_url        = "https://www.kookapp.cn/api/v3"
+authorization   = "Bot 1/MTY1NTExasavdsdcs/mqvrxsaxa6tOVuw=="
+
+
