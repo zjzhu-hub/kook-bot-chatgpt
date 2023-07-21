@@ -16,10 +16,10 @@ max_length = 1000
 
 [openai]
 url             = "https://zjzhu.top"
-authorization   = "Bearer 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" 
+authorization   = "Bearer sk-DPrGtuva4CXXvgxascxqwbkFJtEW6YoiCgdqwxasxaPF9fq" 
 
 [kook]
 base_url        = "https://www.kookapp.cn/api/v3"
-authorization   = "Bot 1/MTY1NTE=/zB9xdCQxh/mqvrSV6tOVuw=="
+authorization   = "Bot 1/MTY1NTE=/xascascdfv/mqvrSV6tOVuw=="
 
 
