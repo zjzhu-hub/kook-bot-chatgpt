@@ -1,4 +1,4 @@
-IMAGE_REPO ?= test.com/kook-bot-chatgpt
+IMAGE_REPO ?= zjzhu/kook-bot-chatgpt
 IMAGE_NAME ?= kook-bot-chatgpt
 VERSION ?= latest
 

@@ -2,45 +2,47 @@ package utils
 
 import (
 	"bytes"
+	"encoding/json"
+	"io/ioutil"
 	"kook-bot-chatgpt/config"
 	"kook-bot-chatgpt/constants"
 	"kook-bot-chatgpt/types"
-	"encoding/json"
-	"io/ioutil"
 	"net/http"
 )
 
 const (
-	contentType    = "application/json"
+	contentType = "application/json"
 )
 
 type KookClient struct{}
 
 type Response struct {
-    Code    int             `json:"code"`
-    Message string          `json:"message"`
-    Data    ResponseData    `json:"data"`
+	Code    int          `json:"code"`
+	Message string       `json:"message"`
+	Data    ResponseData `json:"data"`
 }
 
 type ResponseData struct {
-    MsgID           string  `json:"msg_id"`
-    MsgTimestamp    int64   `json:"msg_timestamp"`
-    Nonce           string  `json:"nonce"`
+	MsgID        string `json:"msg_id"`
+	MsgTimestamp int64  `json:"msg_timestamp"`
+	Nonce        string `json:"nonce"`
 }
 
 // 发送消息返回msg_id
 func (kc KookClient) CreateMessage(msgType constants.Type, channelID, content string) (string, error) {
 	message := types.SendMessage{
-        Type: msgType,
+		Type:     msgType,
 		TargetID: channelID,
-		Content: content,
+		Content:  content,
 	}
 
-	payload, err := json.Marshal(message); if err != nil {
+	payload, err := json.Marshal(message)
+	if err != nil {
 		return "", err
 	}
 
-	req, err := http.NewRequest(http.MethodPost, config.GlobalConfig.Kook.BaseURL + "/message/create", bytes.NewBuffer(payload)); if err != nil {
+	req, err := http.NewRequest(http.MethodPost, config.GlobalConfig.Kook.BaseURL+"/message/create", bytes.NewBuffer(payload))
+	if err != nil {
 		return "", err
 	}
 
@@ -48,7 +50,8 @@ func (kc KookClient) CreateMessage(msgType constants.Type, channelID, content st
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
-	res, err := client.Do(req); if err != nil {
+	res, err := client.Do(req)
+	if err != nil {
 		return "", err
 	}
 
@@ -58,12 +61,14 @@ func (kc KookClient) CreateMessage(msgType constants.Type, channelID, content st
 		return "", ErrSendMessageFailed
 	}
 
-	body, err := ioutil.ReadAll(res.Body); if err != nil {
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
 		return "", err
-    }
+	}
 
 	response := Response{}
-	err = json.Unmarshal(body, &response); if err != nil {
+	err = json.Unmarshal(body, &response)
+	if err != nil {
 		return "", err
 	}
 
@@ -73,15 +78,17 @@ func (kc KookClient) CreateMessage(msgType constants.Type, channelID, content st
 // 根据msg_id更新消息
 func (kc KookClient) UpdateMessage(content, msgID string) error {
 	message := types.SendMessage{
-        MsgID: msgID,
+		MsgID:   msgID,
 		Content: content,
 	}
 
-	payload, err := json.Marshal(message); if err != nil {
+	payload, err := json.Marshal(message)
+	if err != nil {
 		return err
 	}
 
-	req, err := http.NewRequest(http.MethodPost, config.GlobalConfig.Kook.BaseURL + "/message/update", bytes.NewBuffer(payload)); if err != nil {
+	req, err := http.NewRequest(http.MethodPost, config.GlobalConfig.Kook.BaseURL+"/message/update", bytes.NewBuffer(payload))
+	if err != nil {
 		return err
 	}
 
@@ -89,7 +96,8 @@ func (kc KookClient) UpdateMessage(content, msgID string) error {
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
-	res, err := client.Do(req); if err != nil {
+	res, err := client.Do(req)
+	if err != nil {
 		return err
 	}
 
@@ -102,27 +110,24 @@ func (kc KookClient) UpdateMessage(content, msgID string) error {
 	return nil
 }
 
-
 func NewKookClient() *KookClient {
-    return &KookClient{}
+	return &KookClient{}
 }
 
 type ClientError struct {
-    StatusCode int
-    Message    string
+	StatusCode int
+	Message    string
 }
-
 
 func (ce *ClientError) Error() string {
-    return ce.Message
+	return ce.Message
 }
 
-
 func NewClientError(statusCode int, message string) error {
-    return &ClientError{
-        StatusCode: statusCode,
-        Message:    message,
-    }
+	return &ClientError{
+		StatusCode: statusCode,
+		Message:    message,
+	}
 }
 
 var ErrSendMessageFailed = NewClientError(-1, "send message failed")

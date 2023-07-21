@@ -1,12 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"kook-bot-chatgpt/config"
 	"kook-bot-chatgpt/controllers"
 	"kook-bot-chatgpt/events"
 	"kook-bot-chatgpt/middlewares"
 	"kook-bot-chatgpt/utils"
-	"fmt"
 	"log"
 	"net/http"
 )
@@ -28,7 +28,7 @@ func main() {
 
 	// 注册事件
 	events.Init()
-	
+
 	// 启动 HTTP 服务器
 	log.Println("Server started")
 	s := fmt.Sprintf("%v:%v", config.GlobalConfig.Server.Host, config.GlobalConfig.Server.Port)

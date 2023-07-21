@@ -1,10 +1,10 @@
 package handler
 
 import (
+	"encoding/json"
 	"kook-bot-chatgpt/constants"
 	"kook-bot-chatgpt/types"
 	"kook-bot-chatgpt/utils"
-	"encoding/json"
 	"log"
 )
 
@@ -42,7 +42,8 @@ func (h *Help) Handler(body map[string]interface{}) {
 	}
 
 	client := utils.NewKookClient()
-	_, err = client.CreateMessage(constants.MSGCARD, receivedMessage.D.TargetID, string(content)); if err != nil {
+	_, err = client.CreateMessage(constants.MSGCARD, receivedMessage.D.TargetID, string(content))
+	if err != nil {
 		log.Println("Failed to create message:", err)
 		return
 	}

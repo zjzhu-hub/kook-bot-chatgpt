@@ -1,9 +1,9 @@
 package middlewares
 
 import (
-	"kook-bot-chatgpt/utils"
 	"compress/zlib"
 	"io/ioutil"
+	"kook-bot-chatgpt/utils"
 	"log"
 	"net/http"
 )

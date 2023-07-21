@@ -1,11 +1,11 @@
 package handler
 
 import (
+	"encoding/json"
 	"kook-bot-chatgpt/constants"
 	"kook-bot-chatgpt/context"
 	"kook-bot-chatgpt/types"
 	"kook-bot-chatgpt/utils"
-	"encoding/json"
 	"log"
 	"strings"
 )
@@ -61,7 +61,7 @@ func (h *Chat) Handler(body map[string]interface{}) {
 	go chatGPTClient.CreateChat(ch, commandContent, receivedMessage.D.AuthorID)
 
 	for msg := range ch {
-    	// 处理chan接收到的消息
+		// 处理chan接收到的消息
 		cards[0].Modules[0].Text.Content += msg
 		cardMessage, err = json.Marshal(cards)
 		if err != nil {
@@ -70,9 +70,9 @@ func (h *Chat) Handler(body map[string]interface{}) {
 		}
 		kookClient.UpdateMessage(string(cardMessage), msgID)
 	}
-	
+
 	// 由于kook不支持流只能调用更新接口，所有这里要吧默认发送消息的字符串给去掉，免得影响结果
 	cards[0].Modules[0].Text.Content = strings.Replace(cards[0].Modules[0].Text.Content, "让我先走一根思考一下......\n", "", 1)
 	// 记录响应上下文
-	context.StoreContext(receivedMessage.D.AuthorID, types.ChatMessage{ Role: "assistant", Content: cards[0].Modules[0].Text.Content })
+	context.StoreContext(receivedMessage.D.AuthorID, types.ChatMessage{Role: "assistant", Content: cards[0].Modules[0].Text.Content})
 }

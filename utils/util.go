@@ -7,10 +7,9 @@ import (
 )
 
 func ErrorLogger(w http.ResponseWriter, errMsg string) {
-    http.Error(w, errMsg, http.StatusBadRequest)
-    log.Println(errMsg)
+	http.Error(w, errMsg, http.StatusBadRequest)
+	log.Println(errMsg)
 }
-
 
 func ChainMiddleware(h http.Handler, mws ...func(http.Handler) http.Handler) http.Handler {
 	for _, mw := range mws {
@@ -19,13 +18,13 @@ func ChainMiddleware(h http.Handler, mws ...func(http.Handler) http.Handler) htt
 	return h
 }
 
-func ParseCommand(content string) (string, string)  {
+func ParseCommand(content string) (string, string) {
 	if !strings.HasPrefix(content, "/") {
-        return "", ""
-    }
-    parts := strings.SplitN(content, " ", 2)
-    if len(parts) == 1 {
-        return parts[0], ""
-    }
-    return parts[0], parts[1]
+		return "", ""
+	}
+	parts := strings.SplitN(content, " ", 2)
+	if len(parts) == 1 {
+		return parts[0], ""
+	}
+	return parts[0], parts[1]
 }
