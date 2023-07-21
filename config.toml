@@ -15,11 +15,11 @@ max_goroutines = 10
 max_length = 1000
 
 [openai]
-url             = "api.openai.com"
-authorization   = "Bearer sk-kTPExCkhctOW5xvcktaspT3BlbkFJTasxknPFmmCZasxYyw87ir3"
+url             = "https://zjzhu.top"
+authorization   = "Bearer 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" 
 
 [kook]
 base_url        = "https://www.kookapp.cn/api/v3"
-authorization   = "Bot 1/MTY1NTExasavdsdcs/mqvrxsaxa6tOVuw=="
+authorization   = "Bot 1/MTY1NTE=/zB9xdCQxh/mqvrSV6tOVuw=="
 
 
