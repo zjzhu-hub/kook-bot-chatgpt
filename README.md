@@ -1,6 +1,6 @@
 # kook-bot-chatgpt
 
-## Dev Guide
+## Dev Guide 
 
 ```
 git clone git@github.com:zjzhu-hub/kook-bot-chatgpt.git
